@@ -132,7 +132,7 @@ class BinarySearchTree:
             else:
                 currentNode.parent.rightChild = None
         elif currentNode.hasBothChildren():
-            node = self._findMax(currentNode)
+            node = self._findMax(currentNode.leftChild)
             if node.isLeaf():
                 currentNode.key = node.key
                 currentNode.value = node.value
@@ -197,8 +197,10 @@ if __name__ == '__main__':
     tree.put(4, 4)
     tree.put(1, 1)
     tree.put(100, 100)
+
     # tree.inOrder(tree.root)
     tree.delete(10)
     print(tree.root.key)
     print(tree.root.leftChild.key)
     print(tree.root.rightChild.key)
+    tree.inOrder(tree.root)
