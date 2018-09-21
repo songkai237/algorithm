@@ -39,7 +39,7 @@ class binaryTree:
         self.key = value
 
     def preorder(self):
-        print(self.key,end=' ')
+        print(self.key, end=' ')
         if self.left:
             self.left.preorder()
         if self.right:
@@ -50,15 +50,14 @@ class binaryTree:
             self.left.postorder()
         if self.right:
             self.right.postorder()
-        print(self.key,end=' ')
+        print(self.key, end=' ')
 
     def inorder(self):
         if self.left:
             self.left.inorder()
-        print(self.key,end=' ')
+        print(self.key, end=' ')
         if self.right:
             self.right.inorder()
-
 
 
 if __name__ == '__main__':
