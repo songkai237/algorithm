@@ -21,7 +21,7 @@ class MinHeap:
 
     def doDown(self, i):
         while i * 2 <= self._size:
-            minIndex = self._getMInChildIndex(i)
+            minIndex = self._getMinChildIndex(i)
             if self._heapList[i - 1] > self._heapList[minIndex]:
                 self._heapList[i - 1], self._heapList[minIndex] = self._heapList[minIndex], self._heapList[i - 1]
                 i = minIndex
@@ -46,7 +46,7 @@ class MinHeap:
     def getSize(self):
         return self._size
 
-    def _getMInChildIndex(self, i):
+    def _getMinChildIndex(self, i):
         if i * 2 + 1 > self._size:
             return i * 2
         else:
