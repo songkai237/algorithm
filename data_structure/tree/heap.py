@@ -11,6 +11,8 @@ class MinHeap:
             self.doDown(i)
             i -= 1
 
+    # 添加一个元素之后为了维护堆的属性要做上浮操作，i-1为最后一个元素的下标
+    # 跳出循环的条件：进行上浮操作的元素到达根部or元素大于其父元素
     def doUp(self, i):
         while i // 2 > 0:
             if self._heapList[i - 1] < self._heapList[i // 2 - 1]:
@@ -24,7 +26,7 @@ class MinHeap:
             minIndex = self._getMinChildIndex(i)
             if self._heapList[i - 1] > self._heapList[minIndex]:
                 self._heapList[i - 1], self._heapList[minIndex] = self._heapList[minIndex], self._heapList[i - 1]
-                i = minIndex
+                i = minIndex + 1
             else:
                 break
 
@@ -34,6 +36,10 @@ class MinHeap:
         self.doUp(self._size)
 
     def delMin(self):
+        if self._size == 0:
+            return None
+        if self._size == 1:
+            return self._heapList.pop(0)
         minValue = self._heapList[0]
         self._heapList[0] = self._heapList.pop()
         self._size -= 1
@@ -48,12 +54,13 @@ class MinHeap:
 
     def _getMinChildIndex(self, i):
         if i * 2 + 1 > self._size:
-            return i * 2
+            return i * 2 - 1
         else:
             if self._heapList[i * 2 - 1] < self._heapList[i * 2]:
                 return i * 2 - 1
             else:
                 return i * 2
+
 
 # 测试
 if __name__ == '__main__':
@@ -68,6 +75,9 @@ if __name__ == '__main__':
     # print(h.delMin())
     # print(h.getList())
     h = MinHeap()
-    alist = [3,4,1,5,45,24,77,57,15]
+    alist = [3, 4, 1, 5, 45, 24, 77, 57, 15]
     h.buildHeap(alist=alist)
     print(h.getList())
+    for i in range(len(alist)):
+        print(h.delMin())
+        print(h.getList())
