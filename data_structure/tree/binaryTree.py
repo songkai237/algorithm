@@ -33,7 +33,7 @@ class binaryTree:
             return self.right
 
     def getRoot(self):
-        return self.root
+        return self.key
 
     def setRoot(self, value):
         self.key = value
