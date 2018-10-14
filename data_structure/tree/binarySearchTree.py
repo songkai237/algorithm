@@ -5,6 +5,7 @@ class treeNode:
         self.leftChild = left
         self.rightChild = right
         self.parent = parent
+        self.balanceFactor = 0
 
     def hasLeftChild(self):
         return self.leftChild
@@ -70,6 +71,14 @@ class BinarySearchTree:
         print(node.key)
         if node.rightChild:
             self.inOrder(node.rightChild)
+
+    def preOrder(self, node):
+        print(node.key)
+        if node.leftChild:
+            self.preOrder(node.leftChild)
+
+        if node.rightChild:
+            self.preOrder(node.rightChild)
 
     def length(self):
         return self.size
@@ -185,22 +194,26 @@ class BinarySearchTree:
         else:
             return self._findMax(currentNode.leftChild)
 
+    def treeHeight(self, node):
+        if node is None:
+            return 0
+        return max(self.treeHeight(node.leftChild), self.treeHeight(node.rightChild)) + 1
 
-if __name__ == '__main__':
-    tree = BinarySearchTree()
-    tree.put(10, 10)
-    tree.put(78, 78)
-    tree.put(5, 5)
-    tree.put(42, 42)
-    tree.put(8, 8)
-    tree.put(3, 3)
-    tree.put(4, 4)
-    tree.put(1, 1)
-    tree.put(100, 100)
-
-    # tree.inOrder(tree.root)
-    tree.delete(10)
-    print(tree.root.key)
-    print(tree.root.leftChild.key)
-    print(tree.root.rightChild.key)
-    tree.inOrder(tree.root)
+# if __name__ == '__main__':
+#     tree = BinarySearchTree()
+#     tree.put(10, 10)
+#     tree.put(78, 78)
+#     tree.put(5, 5)
+#     tree.put(42, 42)
+#     tree.put(8, 8)
+#     tree.put(3, 3)
+#     tree.put(4, 4)
+#     tree.put(1, 1)
+#     tree.put(100, 100)
+#
+#     # tree.inOrder(tree.root)
+#     tree.delete(10)
+#     print(tree.root.key)
+#     print(tree.root.leftChild.key)
+#     print(tree.root.rightChild.key)
+#     tree.inOrder(tree.root)
