@@ -135,39 +135,53 @@ class BinarySearchTree:
             print("The key is not in tree")
 
     def _deleteNode(self, currentNode):
+        # 待删除的节点为叶子节点
         if currentNode.isLeaf():
             if currentNode.isLeftChild():
                 currentNode.parent.leftChild = None
             else:
                 currentNode.parent.rightChild = None
+        # 待删除的节点有左右孩子
         elif currentNode.hasBothChildren():
+            # 寻找以左孩子为根的子树的最大节点
             node = self._findMax(currentNode.leftChild)
+            # node节点为叶子节点
             if node.isLeaf():
                 currentNode.key = node.key
                 currentNode.value = node.value
                 node.parent.rightChild = None
+            # node节点存在左孩子（因为node节点为最大值，故不会存在右孩子）
             else:
                 currentNode.key = node.key
                 currentNode.value = node.value
                 node.parent.rightChild = node.leftChild
                 node.leftChild.parent = node.parent
+        # 待删除的节点只有一个孩子节点
         else:
+            # 节点为左孩子
             if currentNode.isLeftChild():
+                # 节点只有左孩子
                 if currentNode.hasLeftChild():
                     currentNode.parent.leftChild = currentNode.leftChild
                     currentNode.leftChild.parent = currentNode.parent
+                # 节点只有右孩子
                 else:
                     currentNode.parent.leftChild = currentNode.rightChild
                     currentNode.rightChild.parent = currentNode.parent
+            # 节点为右孩子
             elif currentNode.isRightChild():
-                if currentNode.hasLeftCHild():
+                # 节点只有左孩子
+                if currentNode.hasLeftChild():
                     currentNode.parent.rightChild = currentNode.leftChild
                     currentNode.leftChild.parent = currentNode.parent
+                # 节点只有右孩子
                 else:
                     currentNode.parent.rightChild = currentNode.rightChild
                     currentNode.rightChild.parent = currentNode.parent
+            # 节点为根
             else:
                 if currentNode.hasLeftChild():
+                    # 左孩子上升为根节点
                     currentNode.replaceNodeData(
                         currentNode.leftChild.key,
                         currentNode.leftChild.value,
@@ -175,6 +189,7 @@ class BinarySearchTree:
                         currentNode.leftChild.rightChild
                     )
                 else:
+                    # 右孩子上升为根节点
                     currentNode.replaceNodeData(
                         currentNode.rightChild.key,
                         currentNode.rightChild.value,
@@ -199,21 +214,26 @@ class BinarySearchTree:
             return 0
         return max(self.treeHeight(node.leftChild), self.treeHeight(node.rightChild)) + 1
 
-# if __name__ == '__main__':
-#     tree = BinarySearchTree()
-#     tree.put(10, 10)
-#     tree.put(78, 78)
-#     tree.put(5, 5)
-#     tree.put(42, 42)
-#     tree.put(8, 8)
-#     tree.put(3, 3)
-#     tree.put(4, 4)
-#     tree.put(1, 1)
-#     tree.put(100, 100)
-#
-#     # tree.inOrder(tree.root)
-#     tree.delete(10)
-#     print(tree.root.key)
-#     print(tree.root.leftChild.key)
-#     print(tree.root.rightChild.key)
-#     tree.inOrder(tree.root)
+
+if __name__ == '__main__':
+    tree = BinarySearchTree()
+    tree.put(10, 10)
+    tree.put(78, 78)
+    tree.put(5, 5)
+    tree.put(42, 42)
+    tree.put(8, 8)
+    tree.put(3, 3)
+    tree.put(4, 4)
+    tree.put(1, 1)
+    tree.put(100, 100)
+
+    # tree.inOrder(tree.root)
+    print(tree.root.key)
+    print(tree.root.leftChild.key)
+    print(tree.root.rightChild.key)
+    tree.inOrder(tree.root)
+    tree.delete(tree.root.key)
+    print(tree.root.key)
+    print(tree.root.leftChild.key)
+    print(tree.root.rightChild.key)
+    tree.inOrder(tree.root)
